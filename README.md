@@ -100,10 +100,10 @@ fields = [
 
 ## Development
 
-### Running Locally
+### Testing Locally
 
 ```bash
-uv run main.py
+uv run mcp dev main.py
 ```
 
 ### Dependencies
