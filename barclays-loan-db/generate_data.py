@@ -652,7 +652,7 @@ for app in apps_for_loans:
         current_balance = amount
 
     total_principal_paid = round_decimal(amount - current_balance)
-    total_interest_paid = round_decimal(monthly_payment * months_elapsed - total_principal_paid)
+    total_interest_paid = round_decimal(monthly_payment * min(months_elapsed, term) - total_principal_paid)
 
     # Status
     if current_balance <= 0:
