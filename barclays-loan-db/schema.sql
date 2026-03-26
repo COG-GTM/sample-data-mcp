@@ -313,10 +313,10 @@ CREATE TABLE loan_covenants (
     covenant_id         SERIAL PRIMARY KEY,
     loan_id             VARCHAR(20) NOT NULL REFERENCES loans(loan_id),
     covenant_type       VARCHAR(50) NOT NULL CHECK (covenant_type IN ('Debt Service Coverage', 'Loan to Value', 'Interest Coverage', 'Current Ratio', 'Net Worth', 'Revenue Minimum')),
-    threshold_value     NUMERIC(10, 4) NOT NULL,
+    threshold_value     NUMERIC(14, 4) NOT NULL,
     measurement_frequency VARCHAR(20) CHECK (measurement_frequency IN ('Monthly', 'Quarterly', 'Semi-Annual', 'Annual')),
     last_tested_date    DATE,
-    last_tested_value   NUMERIC(10, 4),
+    last_tested_value   NUMERIC(14, 4),
     status              VARCHAR(20) DEFAULT 'Compliant' CHECK (status IN ('Compliant', 'Breached', 'Waived', 'Not Yet Tested')),
     created_at          TIMESTAMP NOT NULL DEFAULT NOW()
 );

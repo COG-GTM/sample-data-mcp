@@ -17,7 +17,8 @@ NUM_CUSTOMERS = 5000
 NUM_LOAN_APPLICATIONS = 8000
 NUM_LOANS = 6000
 SEED = 42
-OUTPUT_DIR = "/home/ubuntu/barclays_loan_db/data"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+OUTPUT_DIR = os.path.join(SCRIPT_DIR, "data")
 
 random.seed(SEED)
 

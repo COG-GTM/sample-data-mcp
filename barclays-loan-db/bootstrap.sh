@@ -54,10 +54,7 @@ cp "$SCRIPT_DIR/schema.sql" /tmp/schema.sql
 chmod a+r /tmp/schema.sql
 sudo -u postgres psql -d "$DB_NAME" -f /tmp/schema.sql
 
-# 6. Fix covenant column precision before loading data
-sudo -u postgres psql -d "$DB_NAME" -c "ALTER TABLE loan_covenants ALTER COLUMN threshold_value TYPE NUMERIC(14, 4); ALTER TABLE loan_covenants ALTER COLUMN last_tested_value TYPE NUMERIC(14, 4);"
-
-# 7. Generate synthetic data
+# 6. Generate synthetic data
 echo "Generating synthetic data..."
 python3 "$SCRIPT_DIR/generate_data.py"
 
@@ -66,8 +63,8 @@ echo "Loading data into PostgreSQL..."
 cp -r "$SCRIPT_DIR/data" /tmp/barclays_data
 chmod -R a+rX /tmp/barclays_data
 
-# Fix load_data.sql paths to use /tmp
-sed 's|/home/ubuntu/barclays_loan_db/data|/tmp/barclays_data|g' "$SCRIPT_DIR/load_data.sql" > /tmp/load_data.sql
+# Replace placeholder path in load_data.sql with actual data location
+sed "s|__DATA_DIR__|/tmp/barclays_data|g" "$SCRIPT_DIR/load_data.sql" > /tmp/load_data.sql
 chmod a+r /tmp/load_data.sql
 sudo -u postgres psql -d "$DB_NAME" -f /tmp/load_data.sql
 
